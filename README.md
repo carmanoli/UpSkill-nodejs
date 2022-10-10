@@ -3,7 +3,7 @@
 
 # Filmes
 ## End-Points
-- filme/listar:?idfilme
+- filme/listar:idfilme?
 - filme/criar
 - filme/inserir
 - filme/eliminar
