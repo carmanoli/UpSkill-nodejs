@@ -10,4 +10,5 @@
 - POST filme/criar<br>
   Recebe um json com os detalhes do filme e cria
 - POST filme/:id/eliminar
-- GET filme/filmeporgenero
+- GET filme/filmeporgenero<br>
+  Devolve uma estatítica de quantidade de filmes por género
