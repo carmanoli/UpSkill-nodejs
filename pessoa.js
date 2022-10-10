@@ -1,6 +1,7 @@
 const {queryDB, connection} = require("./connection");
 
 const express = require('express');
+const {json} = require("express");
 
 const router = express.Router();
 
@@ -19,13 +20,13 @@ router.get('/realizadores', async function (req, res) {
 });
 
 //Pesquisar um ator pelo ID
-router.get('/atores/:idAutor', async function (req, res) {
+router.get('/atores/:idAtor', async function (req, res) {
     console.log(connection.state);
     // Procurar ator com o mesmo ID
     try {
-        let atores = await queryDB("SELECT pessoa.nome, pessoa.datanascimento, pessoa.genero  FROM `ator`, `pessoa` WHERE ator.idpessoa = pessoa.idpessoa AND pessoa.idpessoa = ?", [req.params.idAutor]);
+        let atores = await queryDB("SELECT pessoa.nome, pessoa.datanascimento, pessoa.genero  FROM `ator`, `pessoa` WHERE ator.idpessoa = pessoa.idpessoa AND pessoa.idpessoa = ?", [req.params.idAtor]);
         if (atores.length > 0) {
-            console.log(req.params.idAutor)
+            console.log(req.params.idAtor)
             res.json(atores);
         } else {
             throw 'Ator Inválido'
@@ -52,63 +53,92 @@ router.get('/realizadores/:idRealizador', async function (req, res) {
     }
 })
 
+//Adicionar pessoa
+router.post('/criar', async function (req, res) {
+    console.log(req.body);
+    let pessoa = await queryDB("SELECT * FROM pessoa WHERE nome = ?", [req.body.nome]);
+
+    if (pessoa.length > 0) {
+        res.status(400).send("Já existe uma pessoa com esse nome");
+        return;
+    }
+
+    //Adicionar pessoa
+    let resultado = await queryDB("INSERT INTO pessoa SET ?", {
+        nome: req.body.nome,
+        datanascimento: req.body.datanascimento,
+        genero: req.body.genero
+    });
+
+    let pessoaAdicionada = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
+    res.json(pessoaAdicionada);
+})
+
 //Adicionar um ator
 router.post('/ator/criar', async function (req, res) {
     console.log(req.body);
-    let ator = await queryDB("SELECT * FROM pessoa WHERE nome = ?", [req.body.nome]);
+    let pessoa = await queryDB("SELECT * FROM pessoa WHERE nome = ?", [req.body.nome]);
+    if (pessoa.length > 0) {
+        res.status(400).send("Já existe uma pessoa com esse nome");
+    } else {
+        let resultado = await queryDB("INSERT INTO pessoa SET ?", {
+            nome: req.body.nome,
+            datanascimento: req.body.datanascimento,
+            genero: req.body.genero
+        });
+        console.log(resultado.insertId)
 
-    if (ator.length > 0) {
-        res.status(400).send("Já existe um ator com esse nome");
-        return;
+        //Adicionar ator em ator
+        await queryDB("INSERT INTO ator SET ?", {
+            idpessoa: resultado.insertId,
+        });
+
+        let atorAdicionado = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
+        res.json(atorAdicionado);
     }
-
-    //Adicionar ator em pessoa
-    let resultado = await queryDB("INSERT INTO pessoa SET ?", {
-        nome: req.body.nome,
-        datanascimento: req.body.datanascimento,
-        genero: req.body.genero
-    });
-    console.log(resultado.insertId)
-
-    //Adicionar ator em ator
-    await queryDB("INSERT INTO ator SET ?", {
-        idpessoa: resultado.insertId,
-    });
-
-    let atorAdicionado = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
-    res.json(atorAdicionado);
 })
 
-//Adicionar um realizador (falta testar/adicionar realizador)
+//Adicionar um realizador
 router.post('/realizador/criar', async function (req, res) {
     console.log(req.body);
-    let realizador = await queryDB("SELECT * FROM pessoa WHERE nome = ?", [req.body.nome]);
+    let pessoa = await queryDB("SELECT * FROM pessoa WHERE nome = ?", [req.body.nome]);
+    if (pessoa.length > 0) {
+        res.status(400).send("Já existe uma pessoa com esse nome");
+    } else {
+        let resultado = await queryDB("INSERT INTO pessoa SET ?", {
+            nome: req.body.nome,
+            datanascimento: req.body.datanascimento,
+            genero: req.body.genero
+        });
+        console.log(resultado.insertId)
 
-    if (realizador.length > 0) {
-        res.status(400).send("Já existe um realizador com esse nome");
-        return;
+        //Adicionar ator em ator
+        await queryDB("INSERT INTO realizador SET ?", {
+            idpessoa: resultado.insertId,
+        });
+
+        let realizadorAdicionado = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
+        res.json(realizadorAdicionado);
     }
-
-    //Adicionar realizador em pessoa
-    let resultado = await queryDB("INSERT INTO pessoa SET ?", {
-        nome: req.body.nome,
-        datanascimento: req.body.datanascimento,
-        genero: req.body.genero
-    });
-    console.log(resultado.insertId)
-
-    //Adicionar realizador em realizador
-    await queryDB("INSERT INTO realizador SET ?", {
-        idpessoa: resultado.insertId,
-    });
-
-    let realizadorAdicionado = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
-    res.json(realizadorAdicionado);
 })
 
-//Remover um ator
+//Remover uma pessoa (BUG)
+router.post('/:idPessoa/apagar', async function (req, res) {
+    console.log(req.body);
+    const pessoaApagada = 'Pessoa apagada com sucesso!';
+    const pessoaNaoApagada = 'Pessoa Inválida para ser apagada.'
+    let pessoa = await queryDB("SELECT *  FROM `pessoa` WHERE pessoa.idpessoa = ?", [req.params.idPessoa]);
+    if (pessoa.length > 0) {
+        await queryDB("DELETE FROM pessoa where idpessoa = ?", [req.params.idPessoa])
+        json(pessoaApagada)
+    } else {
+        json(pessoaNaoApagada)
+    }
+})
 
-
-//Remover um realizador
+//Editar pessoa
+//Consultar nº de filmes de ator
+//Consultar nº de filmes de realizador
+//Excel
 
 module.exports = router;
