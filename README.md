@@ -36,27 +36,6 @@ Atualizar ator
 - POST pessoa/realizador/atualizar/:id<br>
 Atualizar realizador
 
-- GET lista/padronizada
-exibe todas as listas padronizadas
-- GET lista/personalizada
-exibe todas as listas personalizadas
-- GET lista/padronizada/:iduser
-exibe todas as listas padronizadas por utilizador
-- GET lista/personalizada/:iduser
-exibe todas as listas personalizada por utilizador
-- POST lista/padronizada/criar
-adiciona lista padronizada
-- POST lista/personalizada/criar
-adiciona lista personalizada
-- POST lista/padronizada/:id/apagar
-remove lista padronizada
-- POST lista/personalizada/:id/apagar
-remove lista personalizada
-- POST lista/padronizada/:id/editar
-edita lista padronizada
-- POST lista/personalizada/:id/editar
-edita lista personalizada
-
 ## lista
 - GET lista/padronizada
 exibe todas as listas padronizadas
