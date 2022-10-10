@@ -15,9 +15,9 @@
   Devolve uma estatítica de quantidade de filmes por género
 
 ## pessoa
-- GET pessoa/atores 
-Verificar todos os atores
-- GET pessoa/realizadores  
+- GET pessoa/atores
+  Verificar todos os atores
+- GET pessoa/realizadores
 Verificar todos os realizadores
 - GET pessoa/atores/:id 
 Pesquisar um ator pelo ID
