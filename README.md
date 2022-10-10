@@ -15,25 +15,25 @@
   Devolve uma estatítica de quantidade de filmes por género
 
 ## pessoa
-- GET pessoa/atores
+- GET pessoa/atores<br>
   Verificar todos os atores
 - GET pessoa/realizadores
 Verificar todos os realizadores
-- GET pessoa/atores/:id 
+- GET pessoa/atores/:id<br>
 Pesquisar um ator pelo ID
-- GET pessoa/realizadores/:id 
+- GET pessoa/realizadores/:id<br>
 Pesquisar um realizador pelo o nome ou ID
-- POST pessoa/ator/criar 
+- POST pessoa/ator/criar<br>
 Adicionar um ator
-- POST pessoa/realizador/criar 
+- POST pessoa/realizador/criar<br>
 Adicionar um realizador
-- POST pessoa/ator/eliminar 
+- POST pessoa/ator/eliminar<br>
 Remover um ator
-- POST pessoa/realizador/eliminar 
+- POST pessoa/realizador/eliminar<br>
 Remover um realizador
-- POST pessoa/ator/atualizar/:id 
+- POST pessoa/ator/atualizar/:id<br>
 Atualizar ator
-- POST pessoa/realizador/atualizar/:id 
+- POST pessoa/realizador/atualizar/:id<br>
 Atualizar realizador
 
 - GET lista/padronizada
