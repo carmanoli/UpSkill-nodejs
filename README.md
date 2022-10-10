@@ -36,6 +36,10 @@ Remover um realizador
 Atualizar ator
 - POST pessoa/realizador/atualizar/:id<br>
 Atualizar realizador
+- GET pessoa/ator/:id/aparições
+Mostrar uma estatistica de quantos filmes em que o ator está inserido
+-GET pessoa/realizador/:id/aparições
+Mostrar uma estatistica de quantos filmes em que o realizador está inserido
 - GET pessoa/excel
 
 ## lista
