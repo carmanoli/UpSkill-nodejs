@@ -89,6 +89,7 @@ router.post('/realizador/criar', async function (req, res) {
         return;
     }
 
+    //Adicionar realizador em pessoa
     let resultado = await queryDB("INSERT INTO pessoa SET ?", {
         nome: req.body.nome,
         datanascimento: req.body.datanascimento,
@@ -96,11 +97,18 @@ router.post('/realizador/criar', async function (req, res) {
     });
     console.log(resultado.insertId)
 
+    //Adicionar realizador em realizador
+    await queryDB("INSERT INTO realizador SET ?", {
+        idpessoa: resultado.insertId,
+    });
+
     let realizadorAdicionado = await queryDB("SELECT * FROM pessoa WHERE pessoa.idpessoa = ?", [resultado.insertId]);
-    res.json(realizadorAdicionador);
+    res.json(realizadorAdicionado);
 })
 
 //Remover um ator
+
+
 //Remover um realizador
 
 module.exports = router;
