@@ -64,8 +64,8 @@ edita lista personalizada
 ## Utilizadores
 
 - GET utilizador/listar
-- GET utilizador/detalhe:idutilizador
-- GET utilizador/detalhe:nome
+- GET utilizador/:id/detalhe
+- GET utilizador/:nome/detalhe/
 - GET utilizador/comentariosporutilizador
 - POST utilizador/criar 
 - POST utilizador/:id/eliminar
