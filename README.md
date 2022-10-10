@@ -69,7 +69,7 @@ edita lista personalizada
 
 - GET utilizador/listar
 - GET utilizador/:id/detalhe
-- GET utilizador/:nome/detalhe/
+- GET utilizador/:nome/detalhe
 - GET utilizador/comentariosporutilizador
 - POST utilizador/criar 
 - POST utilizador/:id/eliminar
