@@ -37,23 +37,23 @@ Atualizar ator
 Atualizar realizador
 
 ## lista
-- GET lista/padronizada
+- GET lista/padronizada<br>
 exibe todas as listas padronizadas
-- GET lista/personalizada
+- GET lista/personalizada<br>
 exibe todas as listas personalizadas
-- GET lista/padronizada/:iduser
+- GET lista/padronizada/:iduser<br>
 exibe todas as listas padronizadas por utilizador
-- GET lista/personalizada/:iduser
+- GET lista/personalizada/:iduser<br>
 exibe todas as listas personalizada por utilizador
-- POST lista/padronizada/criar
+- POST lista/padronizada/criar<br>
 adiciona lista padronizada
-- POST lista/personalizada/criar
+- POST lista/personalizada/criar<br>
 adiciona lista personalizada
-- POST lista/padronizada/:id/apagar
+- POST lista/padronizada/:id/apagar<br>
 remove lista padronizada
-- POST lista/personalizada/:id/apagar
+- POST lista/personalizada/:id/apagar<br>
 remove lista personalizada
-- POST lista/padronizada/:id/editar
+- POST lista/padronizada/:id/editar<br>
 edita lista padronizada
-- POST lista/personalizada/:id/editar
+- POST lista/personalizada/:id/editar<br>
 edita lista personalizada
