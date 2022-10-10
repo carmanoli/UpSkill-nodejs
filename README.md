@@ -13,3 +13,15 @@
 - POST file/:id/editar
 - GET filme/filmeporgenero<br>
   Devolve uma estatítica de quantidade de filmes por género
+
+- Verificar todos os atores
+- Verificar todos os realizadores
+- Pesquisar um ator pelo ID
+- Pesquisar um realizador pelo o nome ou ID
+- Adicionar um ator
+- Adicionar ator em pessoa
+- Adicionar um realizador
+- Remover um ator
+- Remover um realizador
+- Atualizar ator
+- Atualizar realizador
