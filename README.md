@@ -13,68 +13,63 @@
 - POST file/:id/editar
 - GET filme/filmeporgenero<br>
   Devolve uma estatítica de quantidade de filmes por género
+- GET filme/excel
 
 ## pessoa
-- GET pessoa/atores 
-Verificar todos os atores
-- GET pessoa/realizadores  
+- GET pessoa/atores<br>
+  Verificar todos os atores
+- GET pessoa/realizadores
 Verificar todos os realizadores
-- GET pessoa/atores/:id 
+- GET pessoa/atores/:id<br>
 Pesquisar um ator pelo ID
-- GET pessoa/realizadores/:id 
+- GET pessoa/realizadores/:id<br>
 Pesquisar um realizador pelo o nome ou ID
-- POST pessoa/ator/criar 
+- POST pessoa/ator/criar<br>
 Adicionar um ator
-- POST pessoa/realizador/criar 
+- POST pessoa/realizador/criar<br>
 Adicionar um realizador
-- POST pessoa/ator/eliminar 
+- POST pessoa/ator/eliminar<br>
 Remover um ator
-- POST pessoa/realizador/eliminar 
+- POST pessoa/realizador/eliminar<br>
 Remover um realizador
-- POST pessoa/ator/atualizar/:id 
+- POST pessoa/ator/atualizar/:id<br>
 Atualizar ator
-- POST pessoa/realizador/atualizar/:id 
+- POST pessoa/realizador/atualizar/:id<br>
 Atualizar realizador
-
-- GET lista/padronizada
-exibe todas as listas padronizadas
-- GET lista/personalizada
-exibe todas as listas personalizadas
-- GET lista/padronizada/:iduser
-exibe todas as listas padronizadas por utilizador
-- GET lista/personalizada/:iduser
-exibe todas as listas personalizada por utilizador
-- POST lista/padronizada/criar
-adiciona lista padronizada
-- POST lista/personalizada/criar
-adiciona lista personalizada
-- POST lista/padronizada/:id/apagar
-remove lista padronizada
-- POST lista/personalizada/:id/apagar
-remove lista personalizada
-- POST lista/padronizada/:id/editar
-edita lista padronizada
-- POST lista/personalizada/:id/editar
-edita lista personalizada
+- GET pessoa/excel
 
 ## lista
-- GET lista/padronizada
+- GET lista/padronizada<br>
 exibe todas as listas padronizadas
-- GET lista/personalizada
+- GET lista/personalizada<br>
 exibe todas as listas personalizadas
-- GET lista/padronizada/:iduser
+- GET lista/padronizada/:iduser<br>
 exibe todas as listas padronizadas por utilizador
-- GET lista/personalizada/:iduser
+- GET lista/personalizada/:iduser<br>
 exibe todas as listas personalizada por utilizador
-- POST lista/padronizada/criar
+- POST lista/padronizada/criar<br>
 adiciona lista padronizada
-- POST lista/personalizada/criar
+- POST lista/personalizada/criar<br>
 adiciona lista personalizada
-- POST lista/padronizada/:id/apagar
+- POST lista/padronizada/:id/apagar<br>
 remove lista padronizada
-- POST lista/personalizada/:id/apagar
+- POST lista/personalizada/:id/apagar<br>
 remove lista personalizada
-- POST lista/padronizada/:id/editar
+- POST lista/padronizada/:id/editar<br>
 edita lista padronizada
-- POST lista/personalizada/:id/editar
+- POST lista/personalizada/:id/editar<br>
 edita lista personalizada
+- GET lista/excel
+
+## Utilizadores
+
+- GET utilizador/listar
+- GET utilizador/:id/detalhe
+- GET utilizador/:nome/detalhe/
+- GET utilizador/comentariosporutilizador
+- POST utilizador/criar 
+- POST utilizador/:id/eliminar
+- POST utilizador/:id/editar
+- GET utilizador/excel
+
+
