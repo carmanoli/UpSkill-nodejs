@@ -13,6 +13,7 @@
 - POST file/:id/editar
 - GET filme/filmeporgenero<br>
   Devolve uma estatítica de quantidade de filmes por género
+- GET filme/excel
 
 ## pessoa
 - GET pessoa/atores<br>
@@ -35,6 +36,7 @@ Remover um realizador
 Atualizar ator
 - POST pessoa/realizador/atualizar/:id<br>
 Atualizar realizador
+- GET pessoa/excel
 
 ## lista
 - GET lista/padronizada<br>
@@ -57,6 +59,7 @@ remove lista personalizada
 edita lista padronizada
 - POST lista/personalizada/:id/editar<br>
 edita lista personalizada
+- GET lista/excel
 
 ## Utilizadores
 
@@ -67,5 +70,6 @@ edita lista personalizada
 - POST utilizador/criar 
 - POST utilizador/:id/eliminar
 - POST utilizador/:id/editar
+- GET utilizador/excel
 
 
