@@ -3,7 +3,7 @@
 # Filmes- Routes
 ## filme
 - GET filme/listar
-- GET filme/:id//detalhe<br>
+- GET filme/:id/detalhe<br>
   "filme" pode ser um "id" ou parte do "titulo" do ficheiro
 - GET filme/detalhe?titulo&ator&genero<br>
   Lista filmes que obedecem aos critérios 
