@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const {queryDB} = require("./connection.js");
 const {connection} = require("./connection");
+const router = express.Router();
 
 // listar utilizadores existentes
 app.listen(3000);
