@@ -78,10 +78,11 @@ edita lista personalizada
 - GET utilizador/:id/detalhe
 - GET utilizador/:nome/detalhe
 - GET utilizador/comentarios por utilizador
+- GET utilizador/excel
 - POST utilizador/criar 
 - POST utilizador/:id/eliminar
 - POST utilizador/:id/editar
-- GET utilizador/excel
+
 
 # SQL- Alterações
 
