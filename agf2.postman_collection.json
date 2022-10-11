@@ -15,14 +15,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/filme/17/detalhe",
+							"raw": "localhost:3000/filme/27/detalhe",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"filme",
-								"17",
+								"27",
 								"detalhe"
 							]
 						}
@@ -67,12 +67,12 @@
 					"response": []
 				},
 				{
-					"name": "filme/filtrar?titulo&ano",
+					"name": "filme/filtrar?titulo&ano&realizador&ator&genero",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/filme/filtrar?titulo=Vesper",
+							"raw": "localhost:3000/filme/filtrar?genero=Aventura",
 							"host": [
 								"localhost"
 							],
@@ -83,8 +83,8 @@
 							],
 							"query": [
 								{
-									"key": "titulo",
-									"value": "Vesper"
+									"key": "genero",
+									"value": "Aventura"
 								}
 							]
 						}
@@ -104,7 +104,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idfilme\": 17,\r\n    \"titulo\": \"Vesper\",\r\n    \"ano\": 2021,\r\n    \"sinopse\": \"Após o colapso do ecossistema da Terra, Vesper luta para sobreviver com seu pai paralisado.\",\r\n    \"siglaidoma\": \"UK-US\"\r\n}",
+							"raw": "{\r\n    \"titulo\": \"Vesper\",\r\n    \"ano\": 2022,\r\n    \"sinopse\": \"Após o colapso do ecossistema da Terra, Vesper luta para sobreviver com seu pai paralisado.\",\r\n    \"siglaidoma\": \"UK-US\",\r\n    \"realizador\": [\"Al Pacino\", \"James Caan\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,14 +131,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/filme/17/eliminar",
+							"raw": "localhost:3000/filme/26/eliminar",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"filme",
-								"17",
+								"26",
 								"eliminar"
 							]
 						}
@@ -152,17 +152,22 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titulo\":\"Vesper\",\r\n    \"ano\":2022,\r\n    \r\n}"
+							"raw": "{\r\n    \"titulo\":\"Vesper\",\r\n    \"ano\":2023,\r\n    \"teste\":\"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "localhost:3000/filme/16/alterar",
+							"raw": "localhost:3000/filme/17/alterar",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"filme",
-								"16",
+								"17",
 								"alterar"
 							]
 						}
@@ -285,14 +290,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/utilizador/6/eliminar",
+							"raw": "localhost:3000/utilizador/7/eliminar",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"utilizador",
-								"6",
+								"7",
 								"eliminar"
 							]
 						}
@@ -306,7 +311,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"nome\": \"xpto2\",\r\n        \"email\": \"antonionobre@hotmail.com\",\r\n        \"password\": \"12345678\"\r\n    }",
+							"raw": "    {\r\n        \"nome\": \"xpto3\",\r\n        \"email\": \"antonionobre@hotmail.com\",\r\n        \"password\": \"12345678\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -314,14 +319,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/filme/16/alterar",
+							"raw": "localhost:3000/utilizador/7/alterar",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"filme",
-								"16",
+								"utilizador",
+								"7",
 								"alterar"
 							]
 						}
@@ -356,6 +361,393 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Atores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/atores",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"atores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizadores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizadores",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar ator pelo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/atores/14",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"atores",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pesquisar realizador pelo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizadores/8",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizadores",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/excel",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"excel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizador aparições",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizador/consultar/8",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizador",
+								"consultar",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Realizador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idfilme",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/56/editar/realizador",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"56",
+								"editar",
+								"realizador"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ator aparições",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/ator/consultar/14",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"ator",
+								"consultar",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar ator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "idfilme",
+								"value": "2",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/53",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"53"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/65/apagar",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"65",
+								"apagar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar realizador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "Canete",
+									"type": "default"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1999-07-16",
+									"type": "default"
+								},
+								{
+									"key": "genero",
+									"value": "M",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizador/criar?nome=João Canete&datanascimento=1999-07-16&genero=M",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizador",
+								"criar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "João Canete"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1999-07-16"
+								},
+								{
+									"key": "genero",
+									"value": "M"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar ator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "Jimmy",
+									"type": "default"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1998-01-12",
+									"type": "default"
+								},
+								{
+									"key": "genero",
+									"value": "M",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/ator/criar",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"ator",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "João Canety",
+									"type": "default"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1999-07-16",
+									"type": "default"
+								},
+								{
+									"key": "genero",
+									"value": "M",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/criar",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lista",
+			"item": []
 		}
 	]
 }
