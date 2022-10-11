@@ -1,7 +1,7 @@
 const {queryDB, connection} = require("./connection");
 
 const express = require('express');
-const {json} = require("express");
+const excelJS = require("exceljs");
 
 const router = express.Router();
 
@@ -122,7 +122,7 @@ router.post('/realizador/criar', async function (req, res) {
     }
 })
 
-//Remover uma pessoa
+//Apagar uma pessoa
 router.post('/:idPessoa/apagar', async function (req, res) {
     console.log(req.body);
     let pessoa = await queryDB("SELECT * FROM `pessoa` WHERE pessoa.idPessoa NOT IN (SELECT ator.idpessoa FROM ator) and pessoa.idPessoa NOT IN (SELECT idpessoa FROM realizador) AND pessoa.idpessoa = ?", [req.params.idPessoa]);
@@ -135,19 +135,20 @@ router.post('/:idPessoa/apagar', async function (req, res) {
     }
 })
 
-//Editar Ator (Só atualiza no segundo POST no postman)
+//Editar Ator
 router.post('/:idAtor/editar/ator', async function (req, res) {
     let ator = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idAtor]);
 
     if(ator.length > 0){
         await queryDB("UPDATE ator SET idfilme = ? WHERE ator.idpessoa =?",[req.body.idfilme, req.params.idAtor])
-        res.json(ator);
+        let atorAtualizado = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idAtor]);
+        res.json(atorAtualizado);
     }else{
         res.json('Esta pessoa não é um ator')
     }
 })
 
-//Editar Realizador (Só atualiza no segundo POST no postman)
+//Editar Realizador
 router.post('/:idRealizador/editar/realizador', async function (req, res) {
     let realizador = await queryDB("SELECT * FROM realizador WHERE realizador.idpessoa =?", [req.params.idRealizador]);
 
@@ -184,10 +185,30 @@ router.get('/realizador/consultar/:idRealizador', async function (req, res) {
 })
 
 //Excel
-// FUNÇÃO PARA GERAR O EXCEL DA TABELA DE BILHETES
 router.get('/excel', async function (req, res) {
-    let pessoas = await queryDB("SELECT nome, datanascimento, genero, CASE WHEN ator.idpessoa is not null THEN \"Ator\" when realizador.idpessoa is not null then \"Realizador\" ELSE \"pessoa\" END as tipo FROM `pessoa` left JOIN ator on ator.idpessoa=pessoa.idpessoa left join realizador on realizador.idpessoa=pessoa.idpessoa;\n");
+    let pessoas = await queryDB("SELECT nome, datanascimento, genero, CASE WHEN ator.idpessoa is not null THEN \"Ator\" when realizador.idpessoa is not null then \"Realizador\" ELSE \"Pessoa\" END as tipo FROM `pessoa` left JOIN ator on ator.idpessoa=pessoa.idpessoa left join realizador on realizador.idpessoa=pessoa.idpessoa GROUP BY pessoa.idpessoa;\n");
 
+    const workbook = new excelJS.Workbook();
+    const worksheet = workbook.addWorksheet('pessoas');
+    let colunas = [];
+    for (let i in pessoas[0]) {
+        if (pessoas[0].hasOwnProperty(i)) {
+            colunas.push(i);
+        }
+    }
+    let cabecalho = [];
+    colunas.forEach((coluna) => {
+        cabecalho.push({header: coluna, key: coluna});
+    })
+    worksheet.columns = cabecalho;
+    pessoas.forEach((dados) => {
+        worksheet.addRow(dados);
+    })
+
+    let excel = await workbook.xlsx.writeBuffer();
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    res.setHeader("Content-Disposition", "attachment; filename=pessoas.xlsx");
+    res.send(excel);
 });
 
 module.exports = router;
