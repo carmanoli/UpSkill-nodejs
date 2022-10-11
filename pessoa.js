@@ -122,23 +122,72 @@ router.post('/realizador/criar', async function (req, res) {
     }
 })
 
-//Remover uma pessoa (BUG)
+//Remover uma pessoa
 router.post('/:idPessoa/apagar', async function (req, res) {
     console.log(req.body);
-    const pessoaApagada = 'Pessoa apagada com sucesso!';
-    const pessoaNaoApagada = 'Pessoa Inválida para ser apagada.'
-    let pessoa = await queryDB("SELECT *  FROM `pessoa` WHERE pessoa.idpessoa = ?", [req.params.idPessoa]);
+    let pessoa = await queryDB("SELECT * FROM `pessoa` WHERE pessoa.idPessoa NOT IN (SELECT ator.idpessoa FROM ator) and pessoa.idPessoa NOT IN (SELECT idpessoa FROM realizador) AND pessoa.idpessoa = ?", [req.params.idPessoa]);
+
     if (pessoa.length > 0) {
         await queryDB("DELETE FROM pessoa where idpessoa = ?", [req.params.idPessoa])
-        json(pessoaApagada)
+        res.json('Pessoa apagada com sucesso!')
     } else {
-        json(pessoaNaoApagada)
+        res.json('Pessoa Inválida para ser apagada.')
     }
 })
 
-//Editar pessoa
+//Editar Ator (Só atualiza no segundo POST no postman)
+router.post('/:idAtor/editar/ator', async function (req, res) {
+    let ator = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idAtor]);
+
+    if(ator.length > 0){
+        await queryDB("UPDATE ator SET idfilme = ? WHERE ator.idpessoa =?",[req.body.idfilme, req.params.idAtor])
+        res.json(ator);
+    }else{
+        res.json('Esta pessoa não é um ator')
+    }
+})
+
+//Editar Realizador (Só atualiza no segundo POST no postman)
+router.post('/:idRealizador/editar/realizador', async function (req, res) {
+    let realizador = await queryDB("SELECT * FROM realizador WHERE realizador.idpessoa =?", [req.params.idRealizador]);
+
+    if(realizador.length > 0){
+        await queryDB("UPDATE realizador SET idfilme = ? WHERE realizador.idpessoa =?",[req.body.idfilme, req.params.idRealizador])
+        res.json(realizador);
+    }else{
+        res.json('Esta pessoa não é um realizador')
+    }
+})
+
 //Consultar nº de filmes de ator
+router.get('/ator/consultar/:idAtor', async function (req, res) {
+    let ator = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idAtor]);
+
+    if(ator.length > 0){
+        let resultado = await queryDB("SELECT pessoa.nome, Count(*) AS Filmes FROM `ator`, pessoa, filme WHERE ator.idpessoa = pessoa.idpessoa AND ator.idfilme = filme.idfilme AND pessoa.idpessoa = ? GROUP BY ator.idpessoa", [req.params.idAtor])
+        res.json(resultado);
+    }else{
+        res.json('Esta pessoa não é um ator')
+    }
+})
+
 //Consultar nº de filmes de realizador
+router.get('/realizador/consultar/:idRealizador', async function (req, res) {
+    let realizador = await queryDB("SELECT * FROM realizador WHERE realizador.idpessoa =?", [req.params.idRealizador]);
+
+    if(realizador.length > 0){
+        let resultado = await queryDB("SELECT pessoa.nome, Count(*) AS Filmes FROM `realizador`, pessoa, filme WHERE realizador.idpessoa = pessoa.idpessoa AND realizador.idfilme = filme.idfilme AND pessoa.idpessoa = ? GROUP BY realizador.idpessoa", [req.params.idRealizador])
+        res.json(resultado);
+    }else{
+        res.json('Esta pessoa não é um realizador')
+    }
+})
+
 //Excel
+// FUNÇÃO PARA GERAR O EXCEL DA TABELA DE BILHETES
+router.get('/excel', async function (req, res) {
+    let pessoas = await queryDB("SELECT nome, datanascimento, genero, CASE WHEN ator.idpessoa is not null THEN \"Ator\" when realizador.idpessoa is not null then \"Realizador\" ELSE \"pessoa\" END as tipo FROM `pessoa` left JOIN ator on ator.idpessoa=pessoa.idpessoa left join realizador on realizador.idpessoa=pessoa.idpessoa;\n");
+
+});
 
 module.exports = router;
