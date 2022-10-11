@@ -22,7 +22,6 @@ router.get('/realizadores', async function (req, res) {
 //Pesquisar um ator pelo ID
 router.get('/atores/:idAtor', async function (req, res) {
     console.log(connection.state);
-    // Procurar ator com o mesmo ID
     try {
         let atores = await queryDB("SELECT pessoa.nome, pessoa.datanascimento, pessoa.genero  FROM `ator`, `pessoa` WHERE ator.idpessoa = pessoa.idpessoa AND pessoa.idpessoa = ?", [req.params.idAtor]);
         if (atores.length > 0) {
@@ -39,7 +38,6 @@ router.get('/atores/:idAtor', async function (req, res) {
 //Pesquisar um realizador pelo o nome ou ID
 router.get('/realizadores/:idRealizador', async function (req, res) {
     console.log(connection.state);
-    // Procurar ator com o mesmo ID
     try {
         let realizador = await queryDB("SELECT pessoa.nome, pessoa.datanascimento, pessoa.genero  FROM `realizador`, `pessoa` WHERE realizador.idpessoa = pessoa.idpessoa AND pessoa.idpessoa = ?", [req.params.idRealizador]);
         if (realizador.length > 0) {
@@ -63,7 +61,6 @@ router.post('/criar', async function (req, res) {
         return;
     }
 
-    //Adicionar pessoa
     let resultado = await queryDB("INSERT INTO pessoa SET ?", {
         nome: req.body.nome,
         datanascimento: req.body.datanascimento,
@@ -88,7 +85,6 @@ router.post('/ator/criar', async function (req, res) {
         });
         console.log(resultado.insertId)
 
-        //Adicionar ator em ator
         await queryDB("INSERT INTO ator SET ?", {
             idpessoa: resultado.insertId,
         });
@@ -112,7 +108,6 @@ router.post('/realizador/criar', async function (req, res) {
         });
         console.log(resultado.insertId)
 
-        //Adicionar ator em ator
         await queryDB("INSERT INTO realizador SET ?", {
             idpessoa: resultado.insertId,
         });
