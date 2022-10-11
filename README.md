@@ -2,18 +2,25 @@
 
 # Filmes- Routes
 ## filme
-- GET filme/listar
-- GET filme/:id/detalhe<br>
-  "filme" pode ser um "id" ou parte do "titulo" do ficheiro
-- GET filme/detalhe?titulo&ator&genero<br>
-  Lista filmes que obedecem aos critérios 
-- POST filme/criar<br>
-  Recebe um json com os detalhes do filme e cria
-- POST filme/:id/eliminar
-- POST file/:id/editar
-- GET filme/filmeporgenero<br>
-  Devolve uma estatítica de quantidade de filmes por género
-- GET filme/excel
+    - GET filme/listar
+    
+    - GET filme/:id/detalhe
+    "filme" pode ser um "id" ou parte do "titulo" do ficheiro
+    
+    - GET filme/filtrar?titulo&ator&genero
+    Lista filmes que obedecem aos critérios
+    
+    - POST filme/criar
+    Recebe um json com os detalhes do filme e cria
+    
+    - POST filme/:id/eliminar
+    
+    - POST file/:id/editar
+    
+    - GET filme/filmeporgenero
+    Devolve uma estatítica de quantidade de filmes por género
+    
+    - GET filme/excel
 
 ## pessoa
 - GET pessoa/atores<br>
