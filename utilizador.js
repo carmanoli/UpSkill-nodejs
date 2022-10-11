@@ -23,7 +23,7 @@ app.get('/pontuacao', async function (req, res) {
 
 // listar a lista de utilizador
 app.get('/utilizador/lista', async function (req, res) {
-    let utilizadorlista = await queryDB("SELECT * FROM utilizador, pontuacao, visualizacao WHERE utilizador.idutilizador = pontuacao.idutilizador AND utilizador.idutilizador = visualizacao.idutilizador");
+    let utilizadorlista = await queryDB("SELECT nome, email, password, pontuacao, comentario, datahora FROM utilizador, pontuacao, visualizacao WHERE utilizador.idutilizador = pontuacao.idutilizador AND utilizador.idutilizador = visualizacao.idutilizador");
     res.json(utilizadorlista);
 })
 
