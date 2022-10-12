@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "080c6a85-30bf-43d8-b317-ab29e3070251",
+		"name": "M8_projeto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listas Personalizadas (todas)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/lista/listadesignacaopersonalizada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listadesignacaopersonalizada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listas Padronizadas (todas)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lista/designacaopadonizada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"designacaopadonizada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Personalizada e filmes / Utilizador",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lista/listapersonalizada/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listapersonalizada",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Padronizda e filmes / Utilizador",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lista/listapadronizada/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listapadronizada",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maior Lista Padronizada",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lista/countListaPadronizada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"countListaPadronizada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listas Excel (isto é só p/salvar o url e copia-lo no browser)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lista/excel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"excel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Lista Personalizada",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "designacao",
+							"value": "ListaTestFinal6",
+							"type": "default"
+						},
+						{
+							"key": "idfilme",
+							"value": "1, 2, 5, 8",
+							"type": "default"
+						},
+						{
+							"key": "idUtilizador",
+							"value": "4",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/lista/listapersonalizada/criar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listapersonalizada",
+						"criar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apagar Lista Personalizada",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "",
+							"value": "",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/lista/listapersonalizada/apagar/34",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listapersonalizada",
+						"apagar",
+						"34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Lista Personalizada",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "designacao",
+							"value": "testandooooo",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/lista/listapersonalizada/editar/35",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lista",
+						"listapersonalizada",
+						"editar",
+						"35"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
