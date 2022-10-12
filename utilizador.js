@@ -106,8 +106,7 @@ router.post('/:id/alterar', jsonParser, async function (req, res) {
         if (utilizador.length === 0)
             throw "Registo inexistente!";
 
-        await queryDB("UPDATE utilizador SET nome = ?, email = ?, password = ? where idutilizador = ?", [req.body.nome, req.body.email, req.body.password, req.params.id]);
-
+        await queryDB("INSERT INTO utilizador SET ?", {nome:req.body.nome,email:req.body.email,password:req.body.password})
         res.status(200).json({message: "Operação realizada com sucesso."})
     }
     catch(e){
