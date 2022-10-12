@@ -20,7 +20,7 @@ router.get('/realizadores', async function (req, res) {
     res.json(realizadores);
 });
 
-//Pesquisar um ator pelo ID
+//Pesquisar pelo ID
 router.get('/pesquisar/:idPessoa', async function (req, res) {
     console.log(connection.state);
     try {
@@ -119,35 +119,15 @@ router.post('/:idRealizador/editar/realizador', async function (req, res) {
     }
 })
 
-//Consultar nº de filmes de pessoa
+//Consultar aparições
+router.get('/consultar/:idPessoa', async function (req, res) {
+    let pessoa = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idPessoa]);
 
-//SELECT pessoa.idpessoa, nome, CASE WHEN ator.idpessoa is not null THEN "Ator" ELSE "Realizador" END as tipo, filme.titulo AS aparições
-// FROM `pessoa`
-// left JOIN ator on ator.idpessoa=pessoa.idpessoa
-// left join realizador on realizador.idpessoa=pessoa.idpessoa
-// LEFT JOIN filme on filme.idfilme = realizador.idfilme
-// GROUP BY pessoa.idpessoa
-
-router.get('/ator/consultar/:idAtor', async function (req, res) {
-    let ator = await queryDB("SELECT * FROM ator WHERE ator.idpessoa =?", [req.params.idAtor]);
-
-    if(ator.length > 0){
-        let resultado = await queryDB("SELECT pessoa.nome, Count(*) AS Filmes FROM `ator`, pessoa, filme WHERE ator.idpessoa = pessoa.idpessoa AND ator.idfilme = filme.idfilme AND pessoa.idpessoa = ? GROUP BY ator.idpessoa", [req.params.idAtor])
-        res.json(resultado);
+    if(pessoa.length > 0){
+        let resultado = await queryDB("SELECT pessoa.idpessoa, nome, CASE WHEN ator.idpessoa is not null THEN \"Ator\" ELSE \"Realizador\" END as tipo, filme.titulo AS aparições FROM `pessoa` left JOIN ator on ator.idpessoa=pessoa.idpessoa left join realizador on realizador.idpessoa=pessoa.idpessoa LEFT JOIN filme on filme.idfilme = realizador.idfilme OR ator.idfilme WHERE pessoa.idpessoa = ? GROUP BY pessoa.idpessoa;\n",[req.params.idPessoa])
+        res.json(resultado[0]);
     }else{
         res.json('Esta pessoa não é um ator')
-    }
-})
-
-//Consultar nº de filmes de realizador
-router.get('/realizador/consultar/:idRealizador', async function (req, res) {
-    let realizador = await queryDB("SELECT * FROM realizador WHERE realizador.idpessoa =?", [req.params.idRealizador]);
-
-    if(realizador.length > 0){
-        let resultado = await queryDB("SELECT pessoa.nome, Count(*) AS Filmes FROM `realizador`, pessoa, filme WHERE realizador.idpessoa = pessoa.idpessoa AND realizador.idfilme = filme.idfilme AND pessoa.idpessoa = ? GROUP BY realizador.idpessoa", [req.params.idRealizador])
-        res.json(resultado);
-    }else{
-        res.json('Esta pessoa não é um realizador')
     }
 })
 
