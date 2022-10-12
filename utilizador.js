@@ -124,7 +124,7 @@ router.get('/excel', async function (req, res) {
     {
         const workbook = new ExcelJS.Workbook();
 
-        let utilizador = await queryDB("SELECT nome, email, password, pontuacao, comentario, datahora AS visualizacao FROM utilizador, pontuacao, visualizacao WHERE utilizador.idutilizador = pontuacao.idutilizador AND utilizador.idutilizador = visualizacao.idutilizador");
+        let utilizador = await queryDB("SELECT idutilizador, nome, email, pontuacao, comentario, datahora AS visualizacao FROM utilizador, pontuacao, visualizacao WHERE utilizador.idutilizador = pontuacao.idutilizador AND utilizador.idutilizador = visualizacao.idutilizador");
 
 
 
