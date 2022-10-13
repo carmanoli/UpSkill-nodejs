@@ -1,0 +1,907 @@
+{
+	"info": {
+		"_postman_id": "ff515f4c-b6ab-45c1-a5cd-1443a41803cc",
+		"name": "agf2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12798221"
+	},
+	"item": [
+		{
+			"name": "filme",
+			"item": [
+				{
+					"name": "filme/:id/detalhe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/1/detalhe",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"1",
+								"detalhe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/filtrar?titulo&ano&realizador&ator&genero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/filtrar?genero=Aventura",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"filtrar"
+							],
+							"query": [
+								{
+									"key": "genero",
+									"value": "Aventura"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/criar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "titulo",
+								"value": "Vesper",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Vesper\",\r\n    \"ano\": 2022,\r\n    \"sinopse\": \"Após o colapso do ecossistema da Terra, Vesper luta para sobreviver com seu pai paralisado.\",\r\n    \"siglaidoma\": \"UK-US\",\r\n    \"genero\": [\"Ficção científica\", \"Drama\"],\r\n    \"realizador\": [\"Al Pacino\", \"James Caan\"],\r\n    \"ator\": [\"Al Pacino\", \"James Caan\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/filme/criar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/:id/eliminar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/32/eliminar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"32",
+								"eliminar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/:id/alterar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\":\"Vesper\",\r\n    \"ano\":2023,\r\n    \"sinopse\":\"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/filme/33/alterar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"33",
+								"alterar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/excel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/excel",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"excel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filme/filmeporgenero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/filme/filmeporgenero",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"filme",
+								"filmeporgenero"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "utilizador",
+			"item": [
+				{
+					"name": "utilizador/:id/detalhe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/utilizador/13/detalhe",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"13",
+								"detalhe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/utilizador/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/criar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"idutilizador\": 200000000,\r\n        \"nome\": \"Paula2\",\r\n        \"email\": \"antonionobre@hotmail.com\",\r\n        \"password\": \"12345678\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/utilizador/criar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/id/eliminar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/utilizador/11/eliminar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"11",
+								"eliminar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/:id/alterar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"nome\": \"pedro\",\r\n        \"email\": \"antonionobre@hotmail.com\",\r\n        \"password\": \"12345678\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/utilizador/13/alterar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"13",
+								"alterar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/excel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/utilizador/excel",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"utilizador",
+								"excel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "utilizador/comentariosporutilizador",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Atores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/atores",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"atores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizadores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizadores",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar pelo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/pesquisar/14",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"pesquisar",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar ator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "Jimmy C",
+									"type": "default"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1998-01-12",
+									"type": "default"
+								},
+								{
+									"key": "genero",
+									"value": "M",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/ator/criar",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"ator",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar realizador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "Jimmy Canete",
+									"type": "default"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1999-07-16",
+									"type": "default"
+								},
+								{
+									"key": "genero",
+									"value": "M",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/realizador/criar?nome=João Canete&datanascimento=1999-07-16&genero=M",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"realizador",
+								"criar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "João Canete"
+								},
+								{
+									"key": "datanascimento",
+									"value": "1999-07-16"
+								},
+								{
+									"key": "genero",
+									"value": "M"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/53/apagar",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"53",
+								"apagar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar ator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idfilme",
+									"value": "2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/53/editar/ator",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"53",
+								"editar",
+								"ator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Realizador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idfilme",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/56/editar/realizador",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"56",
+								"editar",
+								"realizador"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aparições",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/consultar/15",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"consultar",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.localhost:3000/pessoa/excel",
+							"protocol": "http",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pessoa",
+								"excel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lista",
+			"item": [
+				{
+					"name": "Listas Personalizadas (todas)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/lista/listadesignacaopersonalizada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listadesignacaopersonalizada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listas Padronizadas (todas)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lista/designacaopadonizada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"designacaopadonizada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista Personalizada e filmes / Utilizador",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lista/listapersonalizada/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listapersonalizada",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista Padronizda e filmes / Utilizador",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lista/listapadronizada/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listapadronizada",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Maior Lista Padronizada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lista/countListaPadronizada",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"countListaPadronizada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listas Excel (isto é só p/salvar o url e copia-lo no browser)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/lista/excel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"excel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Lista Personalizada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "designacao",
+									"value": "ListaTestFinal6",
+									"type": "default"
+								},
+								{
+									"key": "idfilme",
+									"value": "1, 2, 5, 8",
+									"type": "default"
+								},
+								{
+									"key": "idUtilizador",
+									"value": "4",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/lista/listapersonalizada/criar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listapersonalizada",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar Lista Personalizada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/lista/listapersonalizada/apagar/34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listapersonalizada",
+								"apagar",
+								"34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Lista Personalizada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "designacao",
+									"value": "testandooooo",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/lista/listapersonalizada/editar/35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"lista",
+								"listapersonalizada",
+								"editar",
+								"35"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

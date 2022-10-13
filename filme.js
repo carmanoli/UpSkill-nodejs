@@ -4,20 +4,16 @@ const router = express.Router();
 const ExcelJS = require("exceljs");
 
 router.get('/:filme/detalhe', async function (req, res) {
-    console.log('/:id/detalhe');
     try
     {
-        if (req.params.filme == ""){
-            return res.status(400).send({message: 'Deve especificar mais informação!'});
-        }
         let sqlFilter =  ` AND (
             filme.idfilme = ? OR
             filme.titulo LIKE ?
         )` ;
 
         let filmes = await getFilmes(sqlFilter, [req.params.filme, '%' + req.params.filme + '%']);
-        console.log("filmes: ", filmes);
-        res.status(200).json(filmes)
+
+        res.status(200).json(filmes[0])
     }
     catch(e){
         res.status(400).json({message: "Erro: " + e})
@@ -77,15 +73,11 @@ router.get('/excel', async function (req, res) {
     try
     {
         const workbook = new ExcelJS.Workbook();
-
-        let filmes = await getFilmes();
-
-        console.log("filmes:", filmes[0]);
         const worksheet = workbook.addWorksheet("Filmes");
+        let filmes = await getFilmes();
 
         worksheet.columns = Object.keys(filmes[0])
             .map(key => ({header: key, key: key}));
-        console.log("filmes:", Object.keys(filmes[0]));
 
         filmes.forEach(
             linha =>
@@ -104,38 +96,7 @@ router.get('/excel', async function (req, res) {
     }
 })
 
-var bodyParser = require('body-parser')
-var jsonParser = bodyParser.json()
-
-async function select(tabela, campo, filtro) {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            `SELECT * FROM ${tabela} WHERE ${campo} = ?`,
-            [filtro],
-            (err, res) => {
-                if (err) reject(err);
-                resolve(res);
-            }
-        )
-    })
-}
-
-async function insert(tabela, campos, values) {
-    return new Promise((resolve, reject) => {
-        console.log(values)
-        connection.query(
-            `INSERT INTO ${tabela} (${campos.join(",") }) VALUES (?)`,
-            [values],
-            (err, res) => {
-                if (err) reject(err);
-                resolve(res);
-            }
-        )
-    });
-}
-
-router.post('/criar', jsonParser, async function (req, res) {
-    console.log(req.body);
+router.post('/criar',  async function (req, res) {
 
     try {
         // Verificar se filme já existe
@@ -151,7 +112,9 @@ router.post('/criar', jsonParser, async function (req, res) {
         if (req.body.hasOwnProperty('genero')) {
             // se forem especificadas generos verificar se existem
             let getGenero = async genero =>{
-                let generoFilme = await select("genero", "nome", genero);
+
+                let generoFilme = await queryDB("SELECT * FROM genero where nome = ?", [genero]);
+
                 if (generoFilme.length === 0)
                     throw "genero inexistente!";
             }
@@ -164,7 +127,8 @@ router.post('/criar', jsonParser, async function (req, res) {
         if (req.body.hasOwnProperty('ator')) {
             // se forem especificadas atores verificar se existem
             let getAtor = async ator =>{
-                let atorFilme = await select("pessoa", "nome", ator);
+                let atorFilme = await queryDB("SELECT * FROM pessoa where nome = ?", [ator]);
+
                 if (atorFilme.length === 0)
                     throw "ator inexistente!";
             }
@@ -177,7 +141,9 @@ router.post('/criar', jsonParser, async function (req, res) {
         if (req.body.hasOwnProperty('realizador')) {
             // se forem especificado realizador verificar se existe(m)
             let getRealizador = async realizador =>{
-                let realizadorFilme = await select("pessoa", "nome", realizador);
+
+                let realizadorFilme = await queryDB("SELECT * FROM pessoa where nome = ?", [realizador]);
+
                 if (realizadorFilme.length === 0)
                     throw "realizador inexistente!";
             }
@@ -185,6 +151,13 @@ router.post('/criar', jsonParser, async function (req, res) {
             for (let i = 0; i < req.body.realizador.length; i++) {
                 await getRealizador(req.body.realizador[i]);
             }
+        }
+
+        if (req.body.hasOwnProperty('siglaidioma')) {
+            // se forem especificado o idioma verificar se existe
+            let siglaidoma = await queryDB("SELECT * FROM idioma where siglaidioma = ?", [req.body.siglaidoma]);
+            if (siglaidoma.length === 0)
+                throw "Idioma inexistente!";
         }
 
         filme = await queryDB("INSERT INTO filme SET ?", {
@@ -197,11 +170,10 @@ router.post('/criar', jsonParser, async function (req, res) {
         // inserir os generos
         if (req.body.hasOwnProperty('genero')) {
             for (let i = 0; i < req.body.genero.length; i++) {
-                let genero = await select("genero", "nome", req.body.genero[i]);
+                let genero = await queryDB("SELECT * FROM genero where nome = ?", req.body.genero[i]);
                 await queryDB("INSERT INTO filmegenero SET ?", {
                     idfilme: filme.insertId,
                     idgenero: genero[0].idgenero
-
                 })
             }
         }
@@ -209,7 +181,8 @@ router.post('/criar', jsonParser, async function (req, res) {
         // inserir os atores
         if (req.body.hasOwnProperty('ator')) {
             for (let i = 0; i < req.body.ator.length; i++) {
-                let ator = await select("pessoa", "nome", req.body.ator[i]);
+
+                let ator = await queryDB("SELECT * FROM pessoa where nome = ?", req.body.ator[i]);
                 await queryDB("INSERT INTO ator SET ?", {
                     idfilme: filme.insertId,
                     idpessoa: ator[0].idpessoa
@@ -220,7 +193,8 @@ router.post('/criar', jsonParser, async function (req, res) {
         // inserir os realizadores
         if (req.body.hasOwnProperty('realizador')) {
             for (let i = 0; i < req.body.realizador.length; i++) {
-                let realizador = await select("pessoa", "nome", req.body.realizador[i]);
+
+                let realizador = await queryDB("SELECT * FROM pessoa where nome = ?", [req.body.realizador[i]]);
                 await queryDB("INSERT INTO realizador SET ?", {
                     idfilme: filme.insertId,
                     idpessoa: realizador[0].idpessoa
@@ -234,14 +208,33 @@ router.post('/criar', jsonParser, async function (req, res) {
     }
 });
 
-router.post('/:id/alterar', jsonParser, async function (req, res) {
+router.post('/:id/alterar',  async function (req, res) {
     try{
         let filme = await queryDB("SELECT * FROM filme where idfilme = ?", [req.params.id]);
         if (filme.length === 0)
             throw "Filme inexistente!";
 
+        let sqlColumns = ""
+        let sqlParameters = []
+
+        for (var param in req.body) {
+            switch (param) {
+                case 'titulo':
+                case 'ano':
+                case 'sinopse':
+                case 'siglaidioma':
+                    sqlColumns += ` ${param} = ?,`;
+                    sqlParameters.push(req.body[param]);
+                    break;
+            }
+        }
+
+        // remover a ultima virgula
+        if (sqlColumns != "")
+            sqlColumns = sqlColumns.slice(0, -1);
+
         // alterar filme
-        let alterarFilme = await queryDB("UPDATE filme SET ano = ? where idfilme = ?", [req.body.ano, req.params.id]);
+        let alterarFilme = await queryDB("UPDATE filme SET " + sqlColumns + " where idfilme = ?", sqlParameters.concat([req.params.id]));
 
         res.status(200).json({message: "Operação realizada com sucesso."})
     }
@@ -250,7 +243,8 @@ router.post('/:id/alterar', jsonParser, async function (req, res) {
     }
 });
 
-router.post('/:id/eliminar', jsonParser, async function (req, res) {
+
+router.post('/:id/eliminar',  async function (req, res) {
 
     try{
         let resultado = await queryDB("SELECT * FROM filme where idfilme = ?", [req.params.id]);
@@ -260,6 +254,14 @@ router.post('/:id/eliminar', jsonParser, async function (req, res) {
         resultado = await queryDB("SELECT * FROM filmegenero where idfilme = ?", [req.params.id]);
         if (resultado.length > 0)
             throw "Existem generos associados";
+
+        resultado = await queryDB("SELECT * FROM realizador where idfilme = ?", [req.params.id]);
+        if (resultado.length > 0)
+            throw "Existem realizadores associados";
+
+        resultado = await queryDB("SELECT * FROM ator where idfilme = ?", [req.params.id]);
+        if (resultado.length > 0)
+            throw "Existem atores associados";
 
         // Eliminar registo
         resultado = await queryDB("DELETE FROM filme where idfilme = ?", req.params.id);
@@ -289,17 +291,9 @@ router.get('/filmeporgenero', async function (req, res) {
 
 async function getFilmes(sqlFilter = "", parameters = []){
     let sql = `
-        SELECT DISTINCT titulo, ano, sinopse, idioma.idioma, urlposter,
+        SELECT DISTINCT filme.idfilme AS idfilme, titulo, ano, sinopse, idioma.idioma, urlposter,
             (SELECT 
-                CONCAT(
-                       "[",
-                       GROUP_CONCAT(
-                           CONCAT(
-                               "{'nome':'", genero.nome, "'}"
-                           )
-                       ),
-                       ']'
-                 ) 
+                GROUP_CONCAT(genero.nome SEPARATOR ",")
               FROM 
                 filmegenero, genero
               WHERE
@@ -308,15 +302,7 @@ async function getFilmes(sqlFilter = "", parameters = []){
             ) AS genero
             ,
             (SELECT 
-                CONCAT(
-                       "[",
-                       GROUP_CONCAT(
-                           CONCAT(
-                               "{'nome':'", pessoa.nome, "'}"
-                           )
-                       ),
-                       ']'
-                 ) 
+                GROUP_CONCAT(pessoa.nome SEPARATOR ",")
               FROM 
                 realizador, pessoa
               WHERE
@@ -325,15 +311,7 @@ async function getFilmes(sqlFilter = "", parameters = []){
             ) AS realizador            
             ,
             (SELECT 
-                CONCAT(
-                       "[",
-                       GROUP_CONCAT(
-                           CONCAT(
-                               "{'nome':'", pessoa.nome, "'}"
-                           )
-                       ),
-                       ']'
-                 ) 
+                GROUP_CONCAT(pessoa.nome SEPARATOR ",")
               FROM 
                 ator, pessoa
               WHERE
@@ -357,27 +335,28 @@ async function getFilmes(sqlFilter = "", parameters = []){
     `;
 
     let filmes = await queryDB(sql + sqlFilter, parameters)
+
     return filmes;
 }
 
 router.get('/', async function (req, res) {
     let apiHelp = `
-    ## apiHelp 
+    ## info 
     - GET filme/listar
     
     - GET filme/:id/detalhe
-    "filme" pode ser um "id" ou parte do "titulo" do ficheiro
+    "id" pode ser um "id" ou parte do "titulo" do filme
     
-    - GET filme/filtrar?titulo&ator&genero
+    - GET filme/filtrar?titulo&ano&genero&realizador&ator
     Lista filmes que obedecem aos critérios, os campos disponíveis são:
-        titulo, ano, realizador, ator, genero
+        titulo, ano, genero, realizador, ator
     
     - POST filme/criar
-    Recebe um json com os detalhes do filme e cria
+    Recebe um JSON com os detalhes do filme e criar
     
     - POST filme/:id/eliminar
     
-    - POST file/:id/editar
+    - POST file/:id/alterar
     
     - GET filme/filmeporgenero
     Devolve uma estatítica de quantidade de filmes por género
